@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define LEN 100001
 
 using namespace std;
 
@@ -8,7 +9,7 @@ typedef struct
     int pos[2]; // first two positions of duplicated number
 }f_t;
 
-int fr[100001];
+int fr[LEN];
 
 int findDuplicate(int* nums, int numsSize) {
     int ans = 0;
@@ -20,7 +21,7 @@ int findDuplicate(int* nums, int numsSize) {
         if(fr[nums[i]] > 1)
         {
             ans = nums[i];
-            i = n + 1; // break for loop
+            i = numsSize; // break for loop
         }
     }
     return ans;
@@ -43,24 +44,27 @@ void display(int *a, int len)
     printf("\n");
 }
 
+f_t freq[LEN]; // frequency vector
+
 f_t findDuplicate2(int* nums, int numsSize) {
-    //int ans = 0;
-    f_t ans = {0,{0,0}};
+    f_t ans = {0,{0,0}}; // initalizez cu 0
 
     int n = numsSize - 1, i = 0;
 
-    f_t freq[n + 1]; // frequency vector
-    f_t *f = NULL; // used to avoid code duplicates
+    //f_t *f = NULL; // used to avoid code duplicates
 
     display(nums, numsSize);
 
     // initialise:
     for(i = 0; i <= n; ++i)
     {
-        f = freq + i;
+        freq[i].cnt = 0;
+        freq[i].pos[0] = -1;
+        freq[i].pos[1] = -1;
+        /*f = freq + i;
         f->cnt = 0;
         f->pos[0] = -1;
-        f->pos[1] = -1;
+        f->pos[1] = -1; varianta cu pointeri */
     }
     // solve:
     for(i = 0; i <= n; ++i)
@@ -90,7 +94,7 @@ f_t findDuplicate2(int* nums, int numsSize) {
 
 int main()
 {
-   //int a[] = {3,1,3,4,2};
+   
    int a[] = {1,3,4,2,2};
    int n = sizeof(a) / sizeof(int);
    cout << findDuplicate(a, n) << endl;
@@ -99,4 +103,6 @@ int main()
    printf("at positions: %d, %d\n", x.pos[0] + 1, x.pos[1] + 1);
 
    return 0;
+
+   //modificare
 }
