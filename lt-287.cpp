@@ -8,22 +8,16 @@ typedef struct
     int pos[2]; // first two positions of duplicated number
 }f_t;
 
+int fr[100001];
+
 int findDuplicate(int* nums, int numsSize) {
     int ans = 0;
-    int n = numsSize - 1, i = 0;
-    f_t freq[n + 1];
-    // initialise:
-    for(i = 0; i <= n; ++i)
-    {
-        freq[i].cnt = 0;
-        freq[i].pos[0] = -1;
-        freq[i].pos[1] = -1;
-    }
+    int i = 0;
 
-    for(i = 0; i <= n; ++i)
+    for(i = 0; i < numsSize; ++i)
     {
-        ++freq[nums[i]].cnt;
-        if(freq[nums[i]].cnt > 1)
+        ++fr[nums[i]];
+        if(fr[nums[i]] > 1)
         {
             ans = nums[i];
             i = n + 1; // break for loop
